@@ -39,5 +39,7 @@ class Grade:
         '''
         '''
         self.__grade=grade
-    
+
+    def __str__(self):
+        return str(self.__idS) + ';' + str(self.__idL) + ';' + str(self.__prbNr) + ';' + str(self.__grade)
     

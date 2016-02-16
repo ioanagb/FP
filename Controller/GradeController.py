@@ -20,7 +20,10 @@ class GradeController:
         return self.__grepo.getAll()
     
     def __str__(self):
-        return str(self.__grepo.getAll())
+        result = ''
+        for grade in self.__grepo.getAll():
+            result = result + str(grade) + '\n'
+        return result
         
     def assignAgroup(self,lab,group,srepo):
         '''

@@ -72,28 +72,26 @@ class GradeRepository(Repository):
 
     def assignAgroup(self,lab,group,srepo):
         '''
-        iau fiecare student din repository si daca e din grupul meu adaug un grade pentru el (daca nu se afla deja in repositoriul de gardes) 
+        iau fiecare student din repository si daca e din grupul meu adaug o problema pentru el (daca nu se afla deja in repositoriul de gardes) 
         '''
         prbNr=1
-        for s in srepo.getARepository():
-            #print(s,'\n')
-            if prbNr<21:
-                if s.getGroup()==group and self.searchIdAndLab(s.getId(), lab)==False:
-                    g=Grade(s.getId(), lab, prbNr,0)
-                    self.assignProblem(g)
-                    prbNr+=1
-            else:
-                prbNr=1
-                if s.getGroup()==group and self.searchIdAndLab(s.getId(), lab)==False:
-                    g=Grade(s.getId(), lab, prbNr,0)
-                    self.assignProblem(g)
-                    prbNr+=1
+        for s in srepo.getStudents():
+            if prbNr >= 21:
+                prbNr = 1
+            
+            print(type(s.getGroup()), type(group), s.getId(), lab, self.searchIdAndLab(s.getId(), lab) == False)
+            if (int(s.getGroup()) == group) and (self.searchIdAndLab(s.getId(), lab) == False):
+                print('HERE')
+                g=Grade(s.getId(), lab, prbNr,0)
+                self.assignProblem(g)
+                prbNr+=1
+
     
     def gradeStudent(self,idS,lab,grade):
         '''
         '''
         flag=0
-        for el in self.getAll():
+        for el in self.getStudents():
             if idS==el.getIdS() and lab == el.getLabNr():
                 el.setGrade(grade)
                 flag=1

@@ -7,8 +7,8 @@ class UI:
         self.__gctrl=gctrl
         
     def readPosInteger(self,msj):
-        '''
-        Reads a positive integer.'''
+        '''Reads a positive integer.'''
+        
         res=0
         while True:
             try:
@@ -26,12 +26,14 @@ class UI:
         Input:-
         Output: s is added to the repository
         '''
-        id=self.readPosInteger("Please enter an id.\n")
-        name=input("Please enter a name.\n")
-        group=self.readPosInteger("Please enter group number.\n")
-        s=Student(id, name,group)
+        id = self.readPosInteger("Please enter an id:\n")
+        name = input("Please enter a name:\n")
+        group=self.readPosInteger("Please enter group number:\n")
+
+        from Domain.Student import Student
+        s = Student(id, name, group)
+        
         try:
-            #s=Student(id, name,group)
             StudentValidator.studValidate(self, s)
             self.__sctrl.addStudent(s)
         except Exception as e:
@@ -44,11 +46,9 @@ class UI:
         Output:list of student with s delete if there is no grade for it
         '''
         id=self.readPosInteger("Please enter an id.")
-        name=input("Please enter a name.\n")
-        group=self.readPosInteger("Please enter group number.\n")
-        s=Student(id, name,group)
+
         try:
-            self.__sctrl.removeStudent(s)
+            self.__sctrl.removeStudent(id)
         except Exception as e:
             print(e)
             
@@ -107,8 +107,19 @@ class UI:
         Prints the main menu.
         '''
         while True:
-            print('Available Commands: \n 0-exit\n 1-add student\n 2-remove student\n 3-assign a problem to a student\n 4-assign a group \n 5-grade a student \n 6-print a group ordered by average \n')           
-            command=input('Please enter a command.\n')
+            print('''Available Commands:
+            0-exit
+            1-add student
+            2-remove student
+            3-assign a problem to a student
+            4-assign a group
+            5-grade a student
+            6-print a group ordered by average\n''')
+
+            print(self.__sctrl)
+            print(self.__gctrl)
+            
+            command=input('Please enter a command:\n')
             
             if command=='0':
                 print('Bye')

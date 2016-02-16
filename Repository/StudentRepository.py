@@ -7,7 +7,14 @@ class StudentRepository(Repository):
         self.__filename=filename
         self.__grepo=grepo
         self.__loadFromFile()
-        
+
+    def __str__(self):
+        print("HERE")
+        Repository.__str__(self)
+
+    def getStudents(self):
+        return self._data
+
     def __loadFromFile(self):
         '''
         Reads data from file.
@@ -28,9 +35,9 @@ class StudentRepository(Repository):
             if len(studAtrib)!=3:
                 continue
             
-            studId=int(studAtrib[0].strip())
-            studName=studAtrib[1].strip
-            studGroup=studAtrib[2].strip()
+            studId=int(studAtrib[0])
+            studName=studAtrib[1]
+            studGroup=studAtrib[2]
             
             student=Student(studId,studName,studGroup)
             
@@ -47,7 +54,7 @@ class StudentRepository(Repository):
         
         f=open(self.__filename,"w")
         for s in self.getAll():
-            f.write(str(s.getId()) + ';' +s.getName() + ';' + str(s.getGroup()))
+            f.write(str(s.getId()) + ';' +s.getName() + ';' + str(s.getGroup()) + "\n")
         f.close()
         
     def addStudent(self,s):
@@ -61,27 +68,27 @@ class StudentRepository(Repository):
         Repository.add(self, s)
         self.__saveToFile()
         
-    def removeStudent(self,obj):
+    def removeStudent(self,id):
         '''
         Removes a student.
         Input: id-natural nr
                grepo- grades repository
         Output:list of student with s delete if there is no grade for it
         '''
-        exists=False
+
+        obj = None
+        for student in self._data:
+            if student.getId() == id:
+                obj = student
+        if obj == None:
+            raise Exception("This student does not exist.")
+        
         for g in self.__grepo.getAll():
             if obj.getId()==g.getIdS():
                 raise Exception("You can not remove this student because he has grades.")
-        if Repository.searchById(self, obj.getId())==-1:
-            raise Exception("This student does not exist!")
+            
+        # if Repository.searchById(self, obj.getId())==-1:
+        #     raise Exception("This student does not exist!")
         
         Repository.remove(self, obj)
         self.__saveToFile()
-            
-            
-            
-        
-        
-                
-        
-    

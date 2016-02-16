@@ -1,6 +1,6 @@
 
 class Student:
-    def __init__(self,id,name,group):
+    def __init__(self, id, name, group):
         '''
         Creats a Student instance
         '''
@@ -30,5 +30,5 @@ class Student:
         '''
         Returns a student as a string.
         '''
-        return str(self.getId())+ ';' + self.getName() + ';' +str(self.getGroup())
+        return str(self.__id)+ ';' + str(self.__name) + ';' +str(self.__group)
     

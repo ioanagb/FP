@@ -6,6 +6,9 @@ class StudentController:
     '''
     def __init__(self,srepo):
         self.__srepo=srepo
+
+    def getStudents(self):
+        return self.__srepo.getStudents()
         
     def addStudent(self,s):
         '''
@@ -31,4 +34,7 @@ class StudentController:
         return self.__srepo.getAll()
     
     def __str__(self):
-        return str(self.__srepo.getAll())
+        result = ''
+        for student in self.__srepo.getAll():
+            result = result + str(student) + '\n'
+        return result
